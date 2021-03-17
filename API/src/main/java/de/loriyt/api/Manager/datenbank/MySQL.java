@@ -9,16 +9,16 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Datenbank {
-    public static String host = "localhost";
+public class MySQL {
+    public static String host = "*********";
 
-    public static String port = "3306";
+    public static String port = "*********";
 
-    public static String database = "Manager";
+    public static String database = "*********";
 
-    public static String username = "root";
+    public static String username = "*********";
 
-    public static String password = "LoriYT";
+    public static String password = "*********";
 
     public static com.mysql.jdbc.Connection con;
 

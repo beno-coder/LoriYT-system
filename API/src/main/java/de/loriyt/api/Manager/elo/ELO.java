@@ -1,7 +1,7 @@
 package de.loriyt.api.Manager.elo;
 
 import com.mysql.jdbc.PreparedStatement;
-import de.loriyt.api.Manager.datenbank.Datenbank;
+import de.loriyt.api.Manager.datenbank.MySQL;
 import org.bukkit.entity.Player;
 
 import java.sql.ResultSet;
@@ -10,7 +10,7 @@ public class ELO {
 
     public static void createTable() {
         try {
-            PreparedStatement ps = Datenbank.getStatement("CREATE TABLE IF NOT EXISTS Manager (Spielername VARCHAR(100), UUID VARCHAR(100), ELO INT(100))");
+            PreparedStatement ps = MySQL.getStatement("CREATE TABLE IF NOT EXISTS Manager (Spielername VARCHAR(100), UUID VARCHAR(100), ELO INT(100))");
             ps.executeUpdate();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -19,7 +19,7 @@ public class ELO {
 
     public static void register(Player p) {
         try {
-            PreparedStatement ps = Datenbank.getStatement("INSERT INTO Manager (Spielername, UUID, ELO) VALUES (?, ?, ?)");
+            PreparedStatement ps = MySQL.getStatement("INSERT INTO Manager (Spielername, UUID, ELO) VALUES (?, ?, ?)");
             ps.setString(1, p.getName());
             ps.setString(2, p.getUniqueId().toString());
             ps.setInt(3, 0);
@@ -32,7 +32,7 @@ public class ELO {
 
     public static boolean isRegistered(Player p) {
         try {
-            PreparedStatement ps = Datenbank.getStatement("SELECT * FROM Manager WHERE UUID= ?");
+            PreparedStatement ps = MySQL.getStatement("SELECT * FROM Manager WHERE UUID= ?");
             ps.setString(1, p.getUniqueId().toString());
             ResultSet rs = ps.executeQuery();
             boolean user = rs.next();
@@ -47,7 +47,7 @@ public class ELO {
 
     public static boolean isRegistered(String name) {
         try {
-            PreparedStatement ps = Datenbank.getStatement("SELECT * FROM Manager WHERE Spielername= ?");
+            PreparedStatement ps = MySQL.getStatement("SELECT * FROM Manager WHERE Spielername= ?");
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
             boolean user = rs.next();
@@ -62,7 +62,7 @@ public class ELO {
 
     public static int getElo(Player p) {
         try {
-            PreparedStatement ps = Datenbank.getStatement("SELECT * FROM Manager WHERE UUID= ?");
+            PreparedStatement ps = MySQL.getStatement("SELECT * FROM Manager WHERE UUID= ?");
             ps.setString(1, p.getUniqueId().toString());
             ResultSet rs = ps.executeQuery();
             rs.next();
@@ -78,7 +78,7 @@ public class ELO {
 
     public static void setElo(Player p, int elo) {
         try {
-            PreparedStatement ps = Datenbank.getStatement("UPDATE Manager SET ELO= ? WHERE UUID= ?");
+            PreparedStatement ps = MySQL.getStatement("UPDATE Manager SET ELO= ? WHERE UUID= ?");
             ps.setInt(1, elo);
             ps.setString(2, p.getUniqueId().toString());
             ps.executeUpdate();
@@ -90,7 +90,7 @@ public class ELO {
 
     public static void addElo(Player p, int elo) {
         try {
-            PreparedStatement ps = Datenbank.getStatement("UPDATE Manager SET ELO= ? WHERE UUID= ?");
+            PreparedStatement ps = MySQL.getStatement("UPDATE Manager SET ELO= ? WHERE UUID= ?");
             ps.setInt(1, getElo(p) + elo);
             ps.setString(2, p.getUniqueId().toString());
             ps.executeUpdate();
@@ -102,7 +102,7 @@ public class ELO {
 
     public static void removeElo(Player p, int elo) {
         try {
-            PreparedStatement ps = Datenbank.getStatement("UPDATE Manager SET ELO= ? WHERE UUID= ?");
+            PreparedStatement ps = MySQL.getStatement("UPDATE Manager SET ELO= ? WHERE UUID= ?");
             ps.setInt(1, getElo(p) - elo);
             ps.setString(2, p.getUniqueId().toString());
             ps.executeUpdate();
@@ -114,7 +114,7 @@ public class ELO {
 
     public static int getElo(String name) {
         try {
-            PreparedStatement ps = Datenbank.getStatement("SELECT * FROM Manager WHERE Spielername= ?");
+            PreparedStatement ps = MySQL.getStatement("SELECT * FROM Manager WHERE Spielername= ?");
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
             rs.next();
@@ -130,7 +130,7 @@ public class ELO {
 
     public static void setElo(String name, int elo) {
         try {
-            PreparedStatement ps = Datenbank.getStatement("UPDATE Manager SET ELO= ? WHERE Spielername= ?");
+            PreparedStatement ps = MySQL.getStatement("UPDATE Manager SET ELO= ? WHERE Spielername= ?");
             ps.setInt(1, elo);
             ps.setString(2, name);
             ps.executeUpdate();
@@ -142,7 +142,7 @@ public class ELO {
 
     public static void addElo(String name, int elo) {
         try {
-            PreparedStatement ps = Datenbank.getStatement("UPDATE Manager SET ELO= ? WHERE Spielername= ?");
+            PreparedStatement ps = MySQL.getStatement("UPDATE Manager SET ELO= ? WHERE Spielername= ?");
             ps.setInt(1, getElo(name) + elo);
             ps.setString(2, name);
             ps.executeUpdate();
@@ -154,7 +154,7 @@ public class ELO {
 
     public static void removeElo(String name, int elo) {
         try {
-            PreparedStatement ps = Datenbank.getStatement("UPDATE Manager SET ELO= ? WHERE Spielername= ?");
+            PreparedStatement ps = MySQL.getStatement("UPDATE Manager SET ELO= ? WHERE Spielername= ?");
             ps.setInt(1, getElo(name) - elo);
             ps.setString(2, name);
             ps.executeUpdate();

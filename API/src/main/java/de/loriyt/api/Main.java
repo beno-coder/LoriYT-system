@@ -1,6 +1,6 @@
 package de.loriyt.api;
 
-import de.loriyt.api.Manager.datenbank.Datenbank;
+import de.loriyt.api.Manager.datenbank.MySQL;
 import de.loriyt.api.Manager.elo.ELO;
 import de.loriyt.api.Manager.listeners.JoinListener;
 import org.bukkit.Bukkit;
@@ -15,7 +15,7 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         instance = this;
         Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
-        Datenbank.connect();
+        MySQL.connect();
         ELO.createTable();
         System.out.println("API is enabled");
     }
