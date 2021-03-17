@@ -1,0 +1,12 @@
+main: de.loriyt.lobbysystem.Main
+version: 1.0
+name: LobbySystem
+author: shizu
+commands:
+  build:
+    aliases:
+      - b
+  onlinetime:
+  particle:
+  spawnshop:
+  rank:
